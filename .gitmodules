@@ -1,0 +1,3 @@
+[submodule "MeteoDatas-SpringApp"]
+	path = MeteoDatas-SpringApp
+	url = https://github.com/E404NL/MeteoDatas-Spring-Boot.git
