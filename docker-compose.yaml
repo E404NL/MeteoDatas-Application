@@ -1,0 +1,34 @@
+services:
+    spring-app:
+        container_name: spring-app
+        build:
+            context: .
+            dockerfile: local/spring/Dockerfile
+        ports:
+            -"8090:8080"
+        volumes:
+            - ./spring_app:/MeteoDatas-SpringApp
+            - ./.env-local:/MeteoDatas-SpringApp/src/main/resources/.env.properties
+        depends_on:
+            - mongodb
+        networks:
+            - meteo
+        tty: true
+    
+    mongodb:
+        image: mongo:latest
+        container_name: mongodb-local
+        environment:
+            MONGO_INITDB_ROOT_USERNAME : ${MONGODB_USERNAME}
+            MONGO_INITDB_ROOT_PASSWORD : ${MONGODB_PASSWORD}
+            MONGO_INITDB_DATABASE : ${MONGODB_DATABASE}
+        ports:
+            - "27017:27017"
+        volumes:
+            - ./data/mongo:/data/db
+        networks:
+            - meteo
+
+networks:
+    meteo:
+        driver: bridge
