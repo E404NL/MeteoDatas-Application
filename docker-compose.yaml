@@ -5,18 +5,16 @@ services:
             context: .
             dockerfile: local/spring/Dockerfile
         ports:
-            -"8090:8080"
-        volumes:
-            - ./spring_app:/MeteoDatas-SpringApp
-            - ./.env-local:/MeteoDatas-SpringApp/src/main/resources/.env.properties
+            - "8090:8080"
         depends_on:
             - mongodb
         networks:
             - meteo
         tty: true
+        restart: unless-stopped
     
     mongodb:
-        image: mongo:latest
+        image: mongo:8
         container_name: mongodb-local
         environment:
             MONGO_INITDB_ROOT_USERNAME : ${MONGODB_USERNAME}
@@ -28,7 +26,8 @@ services:
             - ./data/mongo:/data/db
         networks:
             - meteo
+        restart: unless-stopped
 
 networks:
     meteo:
-        driver: bridge
+      driver: bridge
