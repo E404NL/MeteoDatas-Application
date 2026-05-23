@@ -6,6 +6,9 @@ services:
             dockerfile: local/spring/Dockerfile
         ports:
             - "8090:8080"
+        volumes:
+            - ./MeteoDatas-SpringApp:/MeteoDatas-SpringApp
+            - maven-cache:/root/.m2
         depends_on:
             - mongodb
         networks:
@@ -31,3 +34,6 @@ services:
 networks:
     meteo:
       driver: bridge
+
+volumes:
+    maven-cache:

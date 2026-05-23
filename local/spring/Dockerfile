@@ -8,6 +8,6 @@ COPY MeteoDatas-SpringApp/ .
 
 RUN mvn clean install -DskipTests
 
-CMD ["mvn", "spring-boot:run"]
+CMD ["mvn", "-Dspring-boot.run.fork=false" ,"spring-boot:run"]
 
 EXPOSE 8080
